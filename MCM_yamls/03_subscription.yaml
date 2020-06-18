@@ -1,0 +1,19 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Subscription
+metadata:
+  name: motd-subscription
+  namespace: motd-mcm-resources
+  labels:
+    purpose: motd
+spec:
+  channel: motd-tekton/motd-channel
+  placement:
+    placementRef:
+      name: motd-placementrule
+      kind: PlacementRule
+      group: app.ibm.com
+  overrides:
+    - clusterName: "/"
+      clusterOverrides:
+      - path: "metadata.namespace"
+        value: motd-mcm
