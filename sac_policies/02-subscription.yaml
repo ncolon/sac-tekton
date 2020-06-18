@@ -1,0 +1,19 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Subscription
+metadata:
+  name: cpeir-subscription
+  namespace: mcm-security-as-code
+  labels:
+    app: cpeir-app
+spec:
+  channel: mcm-security-as-code/cpeir-channel
+  placement:
+     placementRef:
+      name: cpeir-placementrule
+      kind: PlacementRule
+      group: app.ibm.com
+  overrides:
+    - clusterName: "/"
+      clusterOverrides:
+      - path: "metadata.namespace"
+        value: default

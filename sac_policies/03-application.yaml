@@ -1,0 +1,15 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+ name: cpeir-app
+ namespace: mcm-security-as-code
+ labels:
+  name: cpeir
+  app: cpeir-app
+spec:
+ componentKinds:
+ - group: app.ibm.com/v1alpha1
+   kind: Subscription
+ selector:
+  matchLabels:
+   app: cpeir-app

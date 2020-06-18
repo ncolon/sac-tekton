@@ -1,0 +1,13 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: PlacementRule
+metadata:
+  name: cpeir-placementrule
+  namespace: mcm-security-as-code
+  labels:
+    name: cpeir-placementrule
+    app: cpeir-app
+spec:
+  clusterReplicas: 1
+  clusterLabels:
+    matchLabels:
+      environment: Hub

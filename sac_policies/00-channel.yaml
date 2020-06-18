@@ -1,0 +1,9 @@
+# Create a Namespace to hold the Channel
+apiVersion: app.ibm.com/v1alpha1
+kind: Channel
+metadata:
+  name: cpeir-channel
+  namespace: mcm-security-as-code
+spec:  
+  type: GitHub
+  pathname: https://github.com/ncolon/mcm-learning-journey.git
