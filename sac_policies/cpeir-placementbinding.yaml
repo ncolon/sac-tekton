@@ -1,0 +1,13 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementBinding
+metadata:
+  name: binding-cpeir-operator-policy
+  namespace: policy-demo
+placementRef:
+  name: placement-cpeir-operator-policy
+  kind: PlacementPolicy
+  apiGroup: mcm.ibm.com
+subjects:
+- name: cpeir-operator-policy
+  kind: Policy
+  apiGroup: policy.mcm.ibm.com

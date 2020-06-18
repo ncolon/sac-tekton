@@ -1,0 +1,77 @@
+apiVersion: policy.mcm.ibm.com/v1alpha1
+kind: Policy
+metadata:
+  name: cpeir-operator-policy
+  namespace: policy-demo
+  annotations:
+    policy.mcm.ibm.com/standards: 
+    policy.mcm.ibm.com/categories: 
+    policy.mcm.ibm.com/controls: 
+spec:
+  complianceType: musthave
+  remediationAction: enforce
+  disabled: false
+  namespaces:
+    exclude: ["kube-*"]
+    include: ["openshift-marketplace", "ibm-cpeir"]
+  object-templates:
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: operators.coreos.com/v1
+        kind: OperatorSource
+        metadata:
+          name: vbudi000-operators
+          namespace: openshift-marketplace
+        spec:
+          authorizationToken: {}
+          displayName: "CPEIR Operator"
+          endpoint: https://quay.io/cnr
+          publisher: IBM
+          registryNamespace: vbudi000
+          type: appregistry
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: project.openshift.io/v1
+        kind: Project
+        metadata:
+          name: ibm-cpeir
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: operators.coreos.com/v1
+        kind: OperatorGroup
+        metadata:
+          annotations:
+            olm.providedAPIs: CPeir.v1alpha1.cloud.ibm.com
+          name: ibm-cpeir
+          namespace: ibm-cpeir
+        spec:
+          targetNamespaces:
+          - ibm-cpeir
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: Subscription
+        metadata:
+          name: cpeir
+          namespace: ibm-cpeir
+        spec:
+          channel: stable
+          installPlanApproval: Automatic
+          name: cpeir
+          source: vbudi000-operators
+          sourceNamespace: openshift-marketplace
+          startingCSV: cpeir.v0.0.1
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: cloud.ibm.com/v1alpha1
+        kind: CPeir
+        metadata:
+          name: cp4multicloud
+        spec:
+          cptype: "cp4multicloud"
+          cpversion: "1.2"
+          cpsizetype: "development"
+          cpfeatures:
+            - icam
+          action: Check
+          entitlement: ""
