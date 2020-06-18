@@ -10,14 +10,15 @@ spec:
     params:
       - name: pathToYamlFile
         description: The path to the yaml file to deploy within the git source
+        default: "sac_polices"
   steps:
   - name: deploy-policies
     image: lachlanevenson/k8s-kubectl
-    command: ["/bin/bash"]
+    command: ["/bin/sh"]
     args:
       - -c
       - |
-        for yaml in *.yaml;do
+        for yaml in /workspace/git-source-sac/$(inputs.params.pathToYamlFile)/*.yaml;do
           echo "Creating $yaml policy."
           kubectl create -f $yaml
         done
