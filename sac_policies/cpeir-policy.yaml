@@ -2,7 +2,7 @@ apiVersion: policy.mcm.ibm.com/v1alpha1
 kind: Policy
 metadata:
   name: cpeir-operator-policy
-  namespace: policy-demo
+  namespace: mcm-security-as-code
   annotations:
     policy.mcm.ibm.com/standards: 
     policy.mcm.ibm.com/categories: 

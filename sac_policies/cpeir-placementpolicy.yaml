@@ -2,7 +2,7 @@ apiVersion: mcm.ibm.com/v1alpha1
 kind: PlacementPolicy
 metadata:
   name: placement-cpeir-operator-policy
-  namespace: policy-demo
+  namespace: mcm-security-as-code
 spec:
   clusterLabels:
     matchExpressions:
